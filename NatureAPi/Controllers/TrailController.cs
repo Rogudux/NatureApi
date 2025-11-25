@@ -1,6 +1,8 @@
+using System.Text.Json;
 using LibraryAPI.models.DTOS;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OpenAI.Chat;
 
 namespace NatureAPi.Controllers
 {
@@ -9,10 +11,12 @@ namespace NatureAPi.Controllers
     public class TrailController : ControllerBase
     {
         private readonly NatureDBContext _context;
+        private readonly IConfiguration _configuration;
 
-        public TrailController(NatureDBContext context)
+        public TrailController(NatureDBContext context, IConfiguration config)
         {
             _context = context;
+            _configuration = config;
         }
 
         // GET: api/trails?difficulty=Easy
@@ -41,6 +45,36 @@ namespace NatureAPi.Controllers
                 .ToListAsync();
 
             return Ok(trailsDto);
+        }
+        
+        [HttpGet("ai-analyze")]
+        public async Task<ActionResult> AnalyzeTrails(int id)
+        {
+            //obtener api key
+            var openAIKey = _configuration["OpenAIKey"];
+            var client = new ChatClient(model:"gpt-5-mini",apiKey: openAIKey);
+           
+            //obtienene datos
+            var trails = await _context.Trail
+                .ToListAsync();
+            var summary = trails.Select(o => new
+            {
+                o.Id,
+                o.Difficulty,
+                o.DistanceKm,
+                o.EstimatedTimeMinutes,
+                o.IsLoop,
+                o.Name
+                
+            });
+            var jsonData = JsonSerializer.Serialize(summary);
+            //se hace el prompt
+            var prompt = Prompts.GenerateTrailsPrompt(jsonData);
+            
+            var result = await client.CompleteChatAsync(
+                new UserChatMessage(prompt));
+            var response = result.Value.Content[0].Text;
+            return Ok(response);
         }
     }
 }

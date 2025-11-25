@@ -30,16 +30,18 @@ builder.Services.AddCors(options =>
 var connectionString = builder.Configuration.GetConnectionString("SqlServer");
 builder.Services.AddDbContext<NatureDBContext>(o => o.UseSqlServer(connectionString));
 
+var OpenAIKey = builder.Configuration["OpenAIKey"];
+
+
 // -------- BUILD --------
 var app = builder.Build();
 
 // -------- MIDDLEWARE --------
-if (app.Environment.IsDevelopment())
-{
+
     app.UseDeveloperExceptionPage();
     app.UseSwagger();       // genera /swagger/v1/swagger.json
     app.UseSwaggerUI();     // UI en /swagger
-}
+
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
