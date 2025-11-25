@@ -72,7 +72,7 @@ namespace NatureAPi.Controllers
             var prompt = Prompts.GenerateTrailsPrompt(jsonData);
             
             var result = await client.CompleteChatAsync(
-                new UserChatMessage("contestame con uin hola"));
+                new UserChatMessage(prompt));
             var response = result.Value.Content[0].Text;
             return Ok(response);
         }
