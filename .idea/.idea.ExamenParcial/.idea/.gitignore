@@ -1,0 +1,32 @@
+# Rider / Visual Studio / VS Code
+.idea/
+.vs/
+*.suo
+*.user
+*.DotSettings.user
+
+# Reglas específicas de Rider que ya tenías
+/shelf/
+/workspace.xml
+/modules.xml
+/contentModel.xml
+/projectSettingsUpdater.xml
+/.idea.ExamenParcial.iml
+/httpRequests/
+/dataSources/
+/dataSources.local.xml
+
+# Archivos de compilación y paquetes
+[Bb]in/
+[Oo]bj/
+*.nupkg
+
+# Archivos de configuración local
+appsettings.Development.json
+
+# Archivos de log
+*.log
+
+# Archivos generados por el sistema operativo
+.DS_Store
+Thumbs.db

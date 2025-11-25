@@ -1,0 +1,10 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/. i d e a / 
+ 
+ 
+
+NatureAPi/Properties/launchSrm -rf .git
+ettings.json
