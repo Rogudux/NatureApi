@@ -16,7 +16,7 @@ public static class Prompts
             ""avgEstimatedDistance"": string
             ""patterns"": [string],
         }}
-        En la parte de patterns responde las siguientes preguntas NO SOLO con la informacion del json apoyate de internet y del nombre de los trails:
+        En la parte de patterns responde las siguientes preguntas NO SOLO con la informacion del json apoyate de consultas a fuentes públicas (reseñas en Google/Tripadvisor, datos oficiales de visitas, y coordenadas geográficas) y del nombre de los trails:
         Cual es el trail mas turistico de los disponibles?
         Cual es el trail mas cercano de ciudad de mexico?
         Cual es el mas recomendado por los turistas extranjeros?
